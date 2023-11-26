@@ -26,4 +26,4 @@ const svg = makeSvg("Hello, World", {
 });
 ```
 
-![Example SVG](https://raw.github.com/withaspoon/tiny-svg-qrcode/master/example.svg)
+![Example SVG](https://raw.github.com/withaspoon/tiny-qrcode-svg/main/example.svg)
