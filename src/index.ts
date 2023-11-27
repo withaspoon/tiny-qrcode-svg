@@ -23,19 +23,18 @@ function buildPath(qr: QrCode) {
   const OFFSET = DOT_SIZE / 2;
   let path = "";
   for (let y = 0; y < qr._size; y++) {
-    const g = group(qr._modules[y]);
-    const len = g.length;
+    const line = group(qr._modules[y]);
+    const len = line.length;
 
     for (let i = 0; i < len; i++) {
-      const group = g[i];
+      const group = line[i];
 
       if (group[0] === false && i === 0) {
         // if the first element is false, then it's a gap and we can move directly to the next group
-        const command = `M${group.length * DOT_SIZE} ${y * DOT_SIZE + OFFSET}`;
-        path += command;
+        path += `M${group.length * DOT_SIZE} ${y * DOT_SIZE + OFFSET}`;
         continue;
       } else if (group[0] === true && i === 0) {
-        // Otherwise we need to move to the start of the line
+        // Otherwise we have to move to the start of the line
         path += `M0 ${y * DOT_SIZE + OFFSET}`;
       }
 
@@ -65,5 +64,5 @@ export default function makeSvg(
   const qr = QrCode._encodeText(text, Ecc._MEDIUM);
   const path = buildPath(qr);
   const widthHeight = qr._size * DOT_SIZE;
-  return `<svg viewBox="0 0 ${widthHeight} ${widthHeight}" width=${size} height=${size}><path stroke="${color}" stroke-width="${DOT_SIZE}" d="${path}" />`;
+  return `<svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${widthHeight} ${widthHeight}" width="${size}" height="${size}"><path stroke="${color}" stroke-width="${DOT_SIZE}" d="${path}" /></svg>`;
 }
